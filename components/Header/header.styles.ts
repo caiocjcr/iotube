@@ -16,4 +16,5 @@ export const HeaderWrapper = styled.header`
 
 export const SearchForm = styled.form`
   display: flex;
+  max-width: 100%;
 `
