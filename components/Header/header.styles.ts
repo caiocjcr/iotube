@@ -10,6 +10,10 @@ export const HeaderWrapper = styled.header`
   padding: 0px 16px;
 
   .search-container {
-    width: clamp(192px, 100%, 640px);
+    width: clamp(192px, 100vw, 640px);
   }
+`
+
+export const SearchForm = styled.form`
+  display: flex;
 `
