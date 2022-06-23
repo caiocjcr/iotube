@@ -12,11 +12,12 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 const Input: React.FC<InputProps> = ({
   name,
   error,
+  wrapperClassName,
   icon: Icon = null,
   ...rest
 }) => {
   return (
-    <InputWrapper>
+    <InputWrapper className={wrapperClassName ?? ''}>
       <StyledInput
         name={name}
         error={!!error}
