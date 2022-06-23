@@ -8,10 +8,10 @@ export type AppTheme = {
 }
 
 const theme: AppTheme = {
-  background: '#241528',
+  background: '#181818',
   primary: '#3E738E',
   secondary: '#594A54',
-  text: '#ECFEE8',
+  text: '#ccc',
   border: 'rgba(255, 255, 255, 0.1)',
   error: '#da5050',
 }
