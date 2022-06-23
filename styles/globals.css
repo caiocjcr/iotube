@@ -16,3 +16,7 @@ a {
 * {
   box-sizing: border-box;
 }
+
+main {
+  margin: 16px 64px;
+}
