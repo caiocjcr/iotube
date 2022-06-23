@@ -8,6 +8,7 @@ export const Wrapper = styled.div`
 
   @media (min-width: 768px) {
     flex-direction: row;
+    width: clamp(192px, 100vw, 680px);
   }
 `
 
@@ -18,6 +19,7 @@ export const ThumbnailWrapper = styled.div`
 
   @media (min-width: 768px) {
     width: 360px;
+    flex-shrink: 0;
   }
 `
 
@@ -25,7 +27,7 @@ export const InfoWrapper = styled.div`
   padding: 0px 16px;
 
   @media (min-width: 768px) {
-    width: 320px;
+    width: 100%;
     padding: 0px;
   }
 `
