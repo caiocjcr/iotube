@@ -1,4 +1,5 @@
 import type { GetServerSideProps, NextPage } from 'next'
+import { Search } from '../../screens'
 import { youtubeApi } from '../../services'
 import { FoundVideo, PageInfo, SearchVideosResponse } from '../../types'
 
@@ -17,14 +18,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 }
 
-type SearchPageProps = {
+export type SearchPageProps = {
   nextPageToken: string
   pageInfo: PageInfo
   videos: FoundVideo
 }
 
-const Search: NextPage<SearchPageProps> = () => {
-  return <div>search page</div>
+const SearchPage: NextPage<SearchPageProps> = (props) => {
+  return <Search {...props} />
 }
 
-export default Search
+export default SearchPage
