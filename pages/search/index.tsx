@@ -3,25 +3,30 @@ import { Search } from '@/screens'
 import { youtubeApi } from '@/services'
 import { FoundVideo, PageInfo, SearchVideosResponse } from '@/types'
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps<SearchPageProps> = async (
+  context
+) => {
   const { q } = context.query
-  const { data: videoSearchResults } =
-    await youtubeApi.get<SearchVideosResponse>('/search', {
-      params: {
-        part: 'snippet',
-        q,
-        maxResults: 10,
-      },
-    })
+  const { data } = await youtubeApi.get<SearchVideosResponse>('/search', {
+    params: {
+      part: 'snippet',
+      q,
+      maxResults: 10,
+    },
+  })
   return {
-    props: { videoSearchResults },
+    props: {
+      videos: data.items,
+      nextPageToken: data.nextPageToken,
+      pageInfo: data.pageInfo,
+    },
   }
 }
 
 export type SearchPageProps = {
   nextPageToken: string
   pageInfo: PageInfo
-  videos: FoundVideo
+  videos: FoundVideo[]
 }
 
 const SearchPage: NextPage<SearchPageProps> = (props) => {
