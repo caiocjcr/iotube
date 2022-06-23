@@ -1,7 +1,7 @@
 import type { GetServerSideProps, NextPage } from 'next'
-import { Search } from '../../screens'
-import { youtubeApi } from '../../services'
-import { FoundVideo, PageInfo, SearchVideosResponse } from '../../types'
+import { Search } from '@/screens'
+import { youtubeApi } from '@/services'
+import { FoundVideo, PageInfo, SearchVideosResponse } from '@/types'
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { q } = context.query

@@ -1,4 +1,4 @@
-import { SearchPageProps } from '../../pages/search'
+import { SearchPageProps } from '@/pages/search'
 
 const SearchPage: React.FC<SearchPageProps> = () => {
   return <div>Search Page</div>
