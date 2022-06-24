@@ -18,7 +18,9 @@ const VideoInfo: React.FC<VideoInfoProps> = ({
 }) => (
   <InfoWrapper>
     <VideoTitle>{title}</VideoTitle>
-    <VideoChannel>by {channelTitle}</VideoChannel>
+    <VideoChannel>
+      by <b>{channelTitle}</b>
+    </VideoChannel>
     <VideoDescription>{description}</VideoDescription>
   </InfoWrapper>
 )
