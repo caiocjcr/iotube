@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const HeaderWrapper = styled.header`
+export const StyledHeader = styled.header`
   width: 100%;
   height: 56px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);

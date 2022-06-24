@@ -1,13 +1,13 @@
 import styled from 'styled-components'
 
-export const Container = styled.div`
+export const WatchWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 16px;
 `
 
-export const InfoContainer = styled.div`
+export const InfoWrapper = styled.div`
   width: clamp(192px, 100vw, 680px);
   aspect-ratio: 16 / 9;
 `
