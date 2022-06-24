@@ -9,12 +9,21 @@ export type SearchVideosResponse = {
   items: FoundVideo[]
 }
 
+export type GetVideoResponse = {
+  kind: string
+  etag: string
+  pageInfo: PageInfo
+  items: VideoWithPlayer[]
+}
+
 export type FoundVideo = {
   kind: string
   etag: string
   id: VideoIds
   snippet: VideoSnippet
 }
+
+export type VideoWithPlayer = FoundVideo & { player: Player }
 
 export type VideoSnippet = {
   publishedAt: string
@@ -30,4 +39,8 @@ export type VideoSnippet = {
 export type VideoIds = {
   kind: string
   videoId: string
+}
+
+export type Player = {
+  embedHtml: string
 }
