@@ -2,8 +2,9 @@ import { FormEventHandler, useState } from 'react'
 import { Search } from '@material-ui/icons'
 import IconButton from '../IconButton/IconButton'
 import Input from '../Input'
-import { StyledHeader, SearchForm } from './header.styles'
+import { StyledHeader, SearchForm, Logo } from './header.styles'
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 
 const Header: React.FC = () => {
   const { push } = useRouter()
@@ -16,6 +17,11 @@ const Header: React.FC = () => {
 
   return (
     <StyledHeader id="header">
+      <Link href="/" passHref>
+        <Logo>
+          You<span>Tube</span>
+        </Logo>
+      </Link>
       <SearchForm onSubmit={handleSearch}>
         <Input
           name="search-bar"
