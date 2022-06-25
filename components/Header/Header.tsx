@@ -19,7 +19,7 @@ const Header: React.FC = () => {
     <StyledHeader id="header">
       <Link href="/" passHref>
         <Logo>
-          You<span>Tube</span>
+          io<span>Tube</span>
         </Logo>
       </Link>
       <SearchForm onSubmit={handleSearch}>
