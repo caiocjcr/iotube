@@ -11,12 +11,18 @@ export const InfoWrapper = styled.div`
 
 export const VideoTitle = styled.h3`
   margin: 0px 0px 8px;
+  font-weight: 500;
+  color: #fff;
 `
 
-export const VideoDescription = styled.h6`
+export const VideoDescription = styled.h5`
   margin: 8px 0px;
 `
 
-export const VideoChannel = styled.h5`
+export const VideoChannel = styled.h4`
   margin: 8px 0px;
+  strong {
+    font-weight: 500;
+    color: #fff;
+  }
 `
