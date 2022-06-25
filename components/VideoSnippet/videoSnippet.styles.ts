@@ -1,4 +1,6 @@
 import styled from 'styled-components'
+// TODO: use styled-components theme provider
+import theme from '@/styles/theme'
 
 export const VideoSnippetWrapper = styled.div`
   display: flex;
@@ -9,6 +11,28 @@ export const VideoSnippetWrapper = styled.div`
   @media (min-width: 768px) {
     flex-direction: row;
     width: clamp(192px, 100vw, 680px);
+  }
+
+  .thumbnail-container {
+    &:after {
+      content: '';
+      height: 4px;
+      width: 0px;
+      background-color: ${theme.primary};
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      transition: width 0.2s ease-out;
+    }
+  }
+
+  &:hover {
+    .thumbnail-container {
+      &:after {
+        width: 100%;
+      }
+    }
   }
 `
 

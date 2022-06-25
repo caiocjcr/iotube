@@ -15,7 +15,7 @@ type VideoSnippetComponent = React.FC<VideoSnippetProps> & {
 
 const VideoSnippet: VideoSnippetComponent = ({ video }) => (
   <VideoSnippetWrapper>
-    <ThumbnailContainer>
+    <ThumbnailContainer className="thumbnail-container">
       <Image
         src={video.snippet.thumbnails.medium.url}
         alt={video.snippet.title}
