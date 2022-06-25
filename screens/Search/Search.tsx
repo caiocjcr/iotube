@@ -8,6 +8,20 @@ import { FoundVideo, SearchVideosResponse } from '@/types'
 import { useMemo } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 
+const SkeletonLoader = (
+  <>
+    <VideoSnippetContainer>
+      <VideoSnippet.Skeleton />
+    </VideoSnippetContainer>
+    <VideoSnippetContainer>
+      <VideoSnippet.Skeleton />
+    </VideoSnippetContainer>
+    <VideoSnippetContainer>
+      <VideoSnippet.Skeleton />
+    </VideoSnippetContainer>
+  </>
+)
+
 const SearchPage: React.FC<SearchPageProps> = (initialSearch) => {
   const { data, hasNextPage, fetchNextPage } =
     useInfiniteQuery<SearchVideosResponse>(
@@ -42,7 +56,7 @@ const SearchPage: React.FC<SearchPageProps> = (initialSearch) => {
         dataLength={videos.length}
         hasMore={!!hasNextPage}
         next={fetchNextPage}
-        loader={<div>loading...</div>}
+        loader={SkeletonLoader}
       >
         {videos.map((video) => (
           <VideoSnippetContainer key={video.id.videoId}>

@@ -5,6 +5,8 @@ export type AppTheme = {
   text: string
   border: string
   error: string
+  skeletonBackground: string
+  skeletonForeground: string
 }
 
 const theme: AppTheme = {
@@ -14,6 +16,8 @@ const theme: AppTheme = {
   text: '#ccc',
   border: 'rgba(255, 255, 255, 0.1)',
   error: '#da5050',
+  skeletonBackground: '#2d2d2d',
+  skeletonForeground: '#404040',
 }
 
 export default theme
