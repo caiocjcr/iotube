@@ -12,6 +12,11 @@ export interface HttpResponse<T> {
   body: T
 }
 
+export interface HttpError<T = Record<string, unknown>> {
+  statusCode: HttpStatusCode
+  error: T
+}
+
 export interface HttpGetParams<P> {
   url: string
   params?: P
