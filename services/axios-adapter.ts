@@ -1,4 +1,4 @@
-import axios, { AxiosInstance } from 'axios'
+import axios, { AxiosInstance, AxiosResponse } from 'axios'
 import {
   HttpClient,
   HttpGetParams,
@@ -13,14 +13,11 @@ class AxiosHttpAdapter implements HttpClient {
 
   private instance: AxiosInstance
 
-  async get<R, P>({ url, params }: HttpGetParams<P>): Promise<HttpResponse<R>> {
+  private async request<R>(
+    req: Promise<AxiosResponse>
+  ): Promise<HttpResponse<R>> {
     try {
-      const { data: body, status: statusCode } = await this.instance.get<R>(
-        url,
-        {
-          params,
-        }
-      )
+      const { data: body, status: statusCode } = await req
       return { body, statusCode }
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
@@ -34,26 +31,23 @@ class AxiosHttpAdapter implements HttpClient {
     }
   }
 
+  async get<R, P>({ url, params }: HttpGetParams<P>): Promise<HttpResponse<R>> {
+    const response = await this.request<R>(
+      this.instance.get<R>(url, {
+        params,
+      })
+    )
+
+    return response
+  }
+
   async post<R, B>({
     url,
     body: data,
   }: HttpPostParams<B>): Promise<HttpResponse<R>> {
-    try {
-      const { data: body, status: statusCode } = await this.instance.post(
-        url,
-        data
-      )
-      return { body, statusCode }
-    } catch (error: unknown) {
-      if (axios.isAxiosError(error)) {
-        throw {
-          statusCode: error?.response?.status,
-          data: error?.response?.data,
-        }
-      } else {
-        throw error
-      }
-    }
+    const response = await this.request<R>(this.instance.post(url, data))
+
+    return response
   }
 }
 
