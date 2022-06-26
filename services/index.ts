@@ -1,1 +1,1 @@
-export { default as youtubeApi } from './youtubeApi'
+export { default as youtubeApi } from './youtube-api'
