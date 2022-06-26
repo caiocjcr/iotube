@@ -45,7 +45,7 @@ class AxiosHttpAdapter implements HttpClient {
     url,
     body: data,
   }: HttpPostParams<B>): Promise<HttpResponse<R>> {
-    const response = await this.request<R>(this.instance.post(url, data))
+    const response = await this.request<R>(this.instance.post<R>(url, data))
 
     return response
   }
