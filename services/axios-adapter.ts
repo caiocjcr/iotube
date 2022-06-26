@@ -6,12 +6,12 @@ import {
   HttpResponse,
 } from './http-client'
 
-class AxiosHttpAdapter implements HttpClient<AxiosInstance> {
+class AxiosHttpAdapter implements HttpClient {
   constructor(instance: AxiosInstance) {
     this.instance = instance
   }
 
-  instance: AxiosInstance
+  private instance: AxiosInstance
 
   async get<R, P>({ url, params }: HttpGetParams<P>): Promise<HttpResponse<R>> {
     try {

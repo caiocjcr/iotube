@@ -27,8 +27,7 @@ export interface HttpPostParams<B> {
   body: B
 }
 
-export interface HttpClient<I> {
-  instance: I
+export interface HttpClient {
   get: <R, P = Record<string, unknown>>(
     params: HttpGetParams<P>
   ) => Promise<HttpResponse<R>>
