@@ -1,7 +1,7 @@
 import type { GetServerSideProps, NextPage } from 'next'
 import { Search } from '@/screens'
 import { SearchVideosResponse } from '@/types'
-import { searchVideos } from '@/services/youtubeApi'
+import { searchVideos } from '@/services/youtube-api'
 
 export const getServerSideProps: GetServerSideProps<SearchPageProps> = async (
   context
@@ -11,7 +11,7 @@ export const getServerSideProps: GetServerSideProps<SearchPageProps> = async (
   if (!q) throw new Error('No query provided')
   if (typeof q !== 'string') throw new Error('Invalid query')
 
-  const data = await searchVideos({ q })
+  const data = await searchVideos({ q, part: 'snippet' })
   return {
     props: {
       ...data,

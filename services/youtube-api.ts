@@ -1,5 +1,6 @@
 import { SearchVideosPayload, SearchVideosResponse } from '@/types'
 import axios from 'axios'
+import AxiosHttpAdapter from './axios-adapter'
 
 const youtubeApi = axios.create({
   baseURL: 'https://www.googleapis.com/youtube/v3',
@@ -8,20 +9,27 @@ const youtubeApi = axios.create({
   },
 })
 
+const httpClient = new AxiosHttpAdapter(youtubeApi)
+
 export const searchVideos = async ({
   q,
   maxResults = 10,
   pageToken,
+  part,
 }: SearchVideosPayload): Promise<SearchVideosResponse> => {
-  const { data } = await youtubeApi.get<SearchVideosResponse>('/search', {
+  const { body } = await httpClient.get<
+    SearchVideosResponse,
+    SearchVideosPayload
+  >({
+    url: '/search',
     params: {
-      part: 'snippet',
+      part,
       q,
       maxResults,
       ...(pageToken ? { pageToken } : {}),
     },
   })
-  return data
+  return body
 }
 
-export default youtubeApi
+export default httpClient

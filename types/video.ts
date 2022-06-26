@@ -2,6 +2,7 @@ import { PageInfo, Thumbnails } from './youtubeApi'
 
 export type SearchVideosPayload = {
   q: string
+  part: string
   pageToken?: string
   maxResults?: number
 }
@@ -21,6 +22,11 @@ export type GetVideoResponse = {
   etag: string
   pageInfo: PageInfo
   items: VideoWithPlayer[]
+}
+
+export type GetVideoPayload = {
+  part: string
+  id: string
 }
 
 export type FoundVideo = {
