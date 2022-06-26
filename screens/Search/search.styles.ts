@@ -6,6 +6,17 @@ export const SearchWrapper = styled.div`
   align-items: center;
 `
 
+export const ErrorNotice = styled.h2`
+  margin-top: 64px;
+  text-align: center;
+  font-weight: 300;
+  line-height: 64px;
+
+  .sad {
+    font-size: 72px;
+  }
+`
+
 export const VideoSnippetContainer = styled.article`
   margin: 16px 0px;
 

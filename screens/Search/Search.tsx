@@ -1,12 +1,17 @@
 import { VideoSnippet } from '@/components'
 import { SearchPageProps } from '@/pages/search'
 import Link from 'next/link'
-import { SearchWrapper, VideoSnippetContainer } from './search.styles'
+import {
+  ErrorNotice,
+  SearchWrapper,
+  VideoSnippetContainer,
+} from './search.styles'
 import { useInfiniteQuery } from 'react-query'
-import { searchVideos } from '@/services/youtubeApi'
+import { searchVideos } from '@/services/youtube-api'
 import { FoundVideo, SearchVideosResponse } from '@/types'
 import { useMemo } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
+import { useRouter } from 'next/router'
 
 const SkeletonLoader = (
   <>
@@ -22,22 +27,28 @@ const SkeletonLoader = (
   </>
 )
 
-const SearchPage: React.FC<SearchPageProps> = (initialSearch) => {
+const SearchPage: React.FC<SearchPageProps> = ({ error, initialSearch }) => {
+  const {
+    query: { q = '' },
+  } = useRouter()
   const { data, hasNextPage, fetchNextPage } =
     useInfiniteQuery<SearchVideosResponse>(
       'searchResults',
       ({ pageParam: pageToken = undefined }) =>
-        searchVideos({ q: '', pageToken }),
+        searchVideos({ q: q as string, pageToken, part: 'snippet' }),
       {
         initialData: {
-          pages: [initialSearch],
+          pages: error ? [] : [initialSearch],
           pageParams: [],
         },
-        getNextPageParam: (lastPage) => lastPage.nextPageToken,
-        getPreviousPageParam: (lastPage) => lastPage.prevPageToken,
+        ...(!error && {
+          getNextPageParam: (lastPage) => lastPage.nextPageToken,
+          getPreviousPageParam: (lastPage) => lastPage.prevPageToken,
+        }),
         refetchOnWindowFocus: false,
         refetchOnMount: false,
         refetchOnReconnect: false,
+        enabled: !error,
       }
     )
 
@@ -49,6 +60,16 @@ const SearchPage: React.FC<SearchPageProps> = (initialSearch) => {
       ) ?? [],
     [data]
   )
+
+  if (error)
+    return (
+      <SearchWrapper>
+        <ErrorNotice>
+          <span className="sad">:(</span>
+          <br /> An unexpected error occurred.
+        </ErrorNotice>
+      </SearchWrapper>
+    )
 
   return (
     <SearchWrapper>
