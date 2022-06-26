@@ -1,4 +1,4 @@
-import { AxiosInstance } from 'axios'
+import axios, { AxiosInstance } from 'axios'
 import {
   HttpClient,
   HttpGetParams,
@@ -14,21 +14,46 @@ class AxiosHttpAdapter implements HttpClient<AxiosInstance> {
   instance: AxiosInstance
 
   async get<R, P>({ url, params }: HttpGetParams<P>): Promise<HttpResponse<R>> {
-    const { data: body, status: statusCode } = await this.instance.get<R>(url, {
-      params,
-    })
-    return { body, statusCode }
+    try {
+      const { data: body, status: statusCode } = await this.instance.get<R>(
+        url,
+        {
+          params,
+        }
+      )
+      return { body, statusCode }
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        throw {
+          statusCode: error?.response?.status,
+          data: error?.response?.data,
+        }
+      } else {
+        throw error
+      }
+    }
   }
 
   async post<R, B>({
     url,
     body: data,
   }: HttpPostParams<B>): Promise<HttpResponse<R>> {
-    const { data: body, status: statusCode } = await this.instance.post(
-      url,
-      data
-    )
-    return { body, statusCode }
+    try {
+      const { data: body, status: statusCode } = await this.instance.post(
+        url,
+        data
+      )
+      return { body, statusCode }
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        throw {
+          statusCode: error?.response?.status,
+          data: error?.response?.data,
+        }
+      } else {
+        throw error
+      }
+    }
   }
 }
 
