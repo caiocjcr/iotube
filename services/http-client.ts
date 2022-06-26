@@ -14,7 +14,7 @@ export interface HttpResponse<T> {
 
 export interface HttpError<T = Record<string, unknown>> {
   statusCode: HttpStatusCode
-  error: T
+  data: T
 }
 
 export interface HttpGetParams<P> {
