@@ -1,5 +1,5 @@
 import useLocalStorage from './useLocalStorage'
-import { render } from '@testing-library/react'
+import { render, RenderResult } from '@testing-library/react'
 import { act } from 'react-dom/test-utils'
 
 type StoredTypes = string | number | Array<unknown> | Record<string, unknown>
@@ -33,15 +33,37 @@ function TestingComponent<T extends StoredTypes>({
   )
 }
 
+type SutTypes = {
+  sut: RenderResult
+}
+
+type SutParams = {
+  initialValue: string
+  localStorageKey: string
+  onChange?: () => StoredTypes
+}
+
+// Factory method
+const makeSut = (params: SutParams): SutTypes => {
+  const { initialValue, localStorageKey, onChange } = params
+
+  const sut = render(
+    <TestingComponent
+      value={initialValue}
+      localStorageKey={localStorageKey}
+      onChange={onChange}
+    />
+  )
+
+  return { sut }
+}
+
 describe('useLocalStorage', () => {
   it('should initialize with provided value', () => {
     const initialValue = 'initial'
-    const renderResult = render(
-      <TestingComponent localStorageKey="key" value={initialValue} />
-    )
-    expect(renderResult.getByTestId('current-value').textContent).toBe(
-      initialValue
-    )
+    const localStorageKey = 'test-key'
+    const { sut } = makeSut({ initialValue, localStorageKey })
+    expect(sut.getByTestId('current-value').textContent).toBe(initialValue)
   })
 
   it('should get data from localStorage if it has provided key', () => {
@@ -49,15 +71,8 @@ describe('useLocalStorage', () => {
     const storedValue = 'stored'
     const localStorageKey = 'test-key'
     localStorage.setItem(localStorageKey, JSON.stringify(storedValue))
-    const renderResult = render(
-      <TestingComponent
-        localStorageKey={localStorageKey}
-        value={initialValue}
-      />
-    )
-    expect(renderResult.getByTestId('current-value').textContent).toBe(
-      storedValue
-    )
+    const { sut } = makeSut({ initialValue, localStorageKey })
+    expect(sut.getByTestId('current-value').textContent).toBe(storedValue)
   })
 
   it('should keep stored data type', () => {
@@ -65,13 +80,8 @@ describe('useLocalStorage', () => {
     const storedValue = [1, 2, 3]
     const localStorageKey = 'test-key'
     localStorage.setItem(localStorageKey, JSON.stringify(storedValue))
-    const renderResult = render(
-      <TestingComponent
-        localStorageKey={localStorageKey}
-        value={initialValue}
-      />
-    )
-    expect(renderResult.getByTestId('current-value').textContent).toBe(
+    const { sut } = makeSut({ initialValue, localStorageKey })
+    expect(sut.getByTestId('current-value').textContent).toBe(
       JSON.stringify(storedValue)
     )
   })
@@ -79,20 +89,13 @@ describe('useLocalStorage', () => {
   it('should change value upon setState call', () => {
     const localStorageKey = 'test-key'
     const changedValue = 'changed'
-    const renderResult = render(
-      <TestingComponent
-        localStorageKey={localStorageKey}
-        value={''}
-        onChange={() => changedValue}
-      />
-    )
+    const onChange = () => changedValue
+    const { sut } = makeSut({ initialValue: '', localStorageKey, onChange })
     act(() => {
-      renderResult.getByTestId('change-btn').click()
+      sut.getByTestId('change-btn').click()
     })
     const storedItem = localStorage.getItem(localStorageKey)
     expect(JSON.parse(storedItem as string)).toBe(changedValue)
-    expect(renderResult.getByTestId('current-value').textContent).toBe(
-      changedValue
-    )
+    expect(sut.getByTestId('current-value').textContent).toBe(changedValue)
   })
 })
