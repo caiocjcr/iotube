@@ -22,6 +22,8 @@ const Input: React.FC<InputProps> = ({
         name={name}
         error={!!error}
         withIcon={!!Icon}
+        autoComplete="off"
+        role="presentation"
         {...rest}
       ></StyledInput>
       {Icon && (

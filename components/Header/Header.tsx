@@ -25,7 +25,7 @@ const Header: React.FC = () => {
           io<span>Tube</span>
         </Logo>
       </Link>
-      <SearchForm onSubmit={handleSearch}>
+      <SearchForm autoComplete="off" onSubmit={handleSearch}>
         <Input
           name="search-bar"
           placeholder="Search..."
