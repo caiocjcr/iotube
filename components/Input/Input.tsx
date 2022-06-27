@@ -1,7 +1,7 @@
 import React from 'react'
 import { IconWrapper, InputWrapper, StyledInput } from './input.styles'
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   name: string
   label?: string
   wrapperClassName?: string

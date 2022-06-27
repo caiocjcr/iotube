@@ -2,7 +2,7 @@ import React from 'react'
 import classnames from 'classnames'
 import { StyledButton } from './button.styles'
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: 'primary' | 'secondary' | 'outlined' | 'destructive'
   fullWidth?: boolean
 }
