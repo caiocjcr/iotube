@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 
 type StorableTypes = string | number | Array<unknown> | Record<string, unknown>
 
@@ -7,7 +7,13 @@ const useLocalStorage = <T extends StorableTypes>(
   initialValue: T
 ): [T, Dispatch<SetStateAction<T>>] => {
   const stored = localStorage.getItem(localStorageKey)
-  const [state, setState] = useState<T>((stored as T) || initialValue)
+  const [state, setState] = useState<T>(
+    stored ? JSON.parse(stored) : initialValue
+  )
+
+  useEffect(() => {
+    localStorage.setItem(localStorageKey, JSON.stringify(state))
+  }, [state, localStorageKey])
 
   return [state, setState]
 }
