@@ -1,4 +1,9 @@
-import { SearchVideosPayload, SearchVideosResponse } from '@/types'
+import {
+  SearchVideosPayload,
+  SearchVideosResponse,
+  GetVideosPayload,
+  GetVideosResponse,
+} from '@/types'
 import axios from 'axios'
 import AxiosHttpAdapter from './axios-adapter'
 
@@ -27,6 +32,24 @@ export const searchVideos = async ({
       q,
       maxResults,
       ...(pageToken ? { pageToken } : {}),
+    },
+  })
+  return body
+}
+
+export const getVideos = async ({
+  part,
+  pageToken,
+  maxResults = 10,
+  chart,
+}: GetVideosPayload): Promise<GetVideosResponse> => {
+  const { body } = await httpClient.get<GetVideosResponse, GetVideosPayload>({
+    url: '/videos',
+    params: {
+      part,
+      maxResults,
+      ...(pageToken ? { pageToken } : {}),
+      ...(chart ? { chart } : {}),
     },
   })
   return body

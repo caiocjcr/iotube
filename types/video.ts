@@ -1,4 +1,4 @@
-import { PageInfo, PaginatedYoutubeResponseHead, Thumbnails } from './youtubeApi'
+import { PaginatedYoutubeResponseHead, Thumbnails } from './youtubeApi'
 
 export type SearchVideosPayload = {
   q: string
