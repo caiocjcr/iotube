@@ -57,3 +57,8 @@ export type VideoIds = {
 export type Player = {
   embedHtml: string
 }
+
+export type SearchedVideo = {
+  term: string
+  when: Date
+}
