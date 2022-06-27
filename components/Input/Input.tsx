@@ -42,6 +42,7 @@ const Input: React.FC<InputProps> = ({
 
   const handleSearch = (query: string) => {
     push(`/search?q=${query}`)
+    setIsFocused(false)
   }
 
   return (
