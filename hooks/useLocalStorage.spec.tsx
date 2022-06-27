@@ -32,4 +32,20 @@ describe('useLocalStorage', () => {
       initialValue
     )
   })
+
+  it('should get data from localStorage if it has provided key', () => {
+    const initialValue = 'initial'
+    const storedValue = 'stored'
+    const localStorageKey = 'test-key'
+    localStorage.setItem(localStorageKey, storedValue)
+    const renderResult = render(
+      <TestingComponent
+        localStorageKey={localStorageKey}
+        value={initialValue}
+      />
+    )
+    expect(renderResult.getByTestId('current-value').textContent).toBe(
+      storedValue
+    )
+  })
 })
