@@ -48,4 +48,20 @@ describe('useLocalStorage', () => {
       storedValue
     )
   })
+
+  it('should keep stored data type', () => {
+    const initialValue = ''
+    const storedValue = [1, 2, 3]
+    const localStorageKey = 'test-key'
+    localStorage.setItem(localStorageKey, JSON.stringify(storedValue))
+    const renderResult = render(
+      <TestingComponent
+        localStorageKey={localStorageKey}
+        value={initialValue}
+      />
+    )
+    expect(renderResult.getByTestId('current-value').textContent).toBe(
+      JSON.stringify(storedValue)
+    )
+  })
 })
