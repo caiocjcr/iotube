@@ -1,24 +1,35 @@
 import useLocalStorage from './useLocalStorage'
 import { render } from '@testing-library/react'
+import { act } from 'react-dom/test-utils'
 
 type StoredTypes = string | number | Array<unknown> | Record<string, unknown>
 
 type TestingComponentProps<T extends StoredTypes> = {
   localStorageKey: string
   value: T
+  onChange?: () => T
 }
 
 function TestingComponent<T extends StoredTypes>({
   localStorageKey,
   value,
+  onChange,
 }: TestingComponentProps<T>) {
-  const [state] = useLocalStorage<T>(localStorageKey, value)
+  const [state, setState] = useLocalStorage<T>(localStorageKey, value)
   return (
-    <div data-testid="current-value">
-      {typeof state === 'string' || typeof state === 'number'
-        ? state
-        : JSON.stringify(state)}
-    </div>
+    <>
+      <div data-testid="current-value">
+        {typeof state === 'string' || typeof state === 'number'
+          ? state
+          : JSON.stringify(state)}
+      </div>
+      <button
+        data-testid="change-btn"
+        onClick={() => (onChange ? setState(onChange()) : null)}
+      >
+        Change value
+      </button>
+    </>
   )
 }
 
@@ -62,6 +73,26 @@ describe('useLocalStorage', () => {
     )
     expect(renderResult.getByTestId('current-value').textContent).toBe(
       JSON.stringify(storedValue)
+    )
+  })
+
+  it('should change value upon setState call', () => {
+    const localStorageKey = 'test-key'
+    const changedValue = 'changed'
+    const renderResult = render(
+      <TestingComponent
+        localStorageKey={localStorageKey}
+        value={''}
+        onChange={() => changedValue}
+      />
+    )
+    act(() => {
+      renderResult.getByTestId('change-btn').click()
+    })
+    const storedItem = localStorage.getItem(localStorageKey)
+    expect(JSON.parse(storedItem as string)).toBe(changedValue)
+    expect(renderResult.getByTestId('current-value').textContent).toBe(
+      changedValue
     )
   })
 })
