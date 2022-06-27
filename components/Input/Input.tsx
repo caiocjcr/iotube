@@ -1,5 +1,11 @@
-import React from 'react'
-import { IconWrapper, InputWrapper, StyledInput } from './input.styles'
+import React, { useCallback, useState } from 'react'
+import {
+  AutoCompleteContainer,
+  AutoCompleteItem,
+  IconWrapper,
+  InputWrapper,
+  StyledInput,
+} from './input.styles'
 
 type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   name: string
@@ -7,6 +13,7 @@ type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   wrapperClassName?: string
   error?: string | boolean | undefined
   icon?: React.FC
+  autoCompleteOptions?: string[]
 }
 
 const Input: React.FC<InputProps> = ({
@@ -14,8 +21,13 @@ const Input: React.FC<InputProps> = ({
   error,
   wrapperClassName,
   icon: Icon = null,
+  autoCompleteOptions,
   ...rest
 }) => {
+  const [isFocused, setIsFocused] = useState<boolean>(false)
+
+  const toggleFocus = useCallback(() => setIsFocused(!isFocused), [isFocused])
+
   return (
     <InputWrapper className={wrapperClassName ?? ''}>
       <StyledInput
@@ -24,12 +36,23 @@ const Input: React.FC<InputProps> = ({
         withIcon={!!Icon}
         autoComplete="off"
         role="presentation"
+        onFocus={toggleFocus}
+        onBlur={toggleFocus}
         {...rest}
       ></StyledInput>
       {Icon && (
         <IconWrapper>
           <Icon />
         </IconWrapper>
+      )}
+      {!!autoCompleteOptions?.length && isFocused && (
+        <AutoCompleteContainer>
+          {autoCompleteOptions.map((term, index) => (
+            <AutoCompleteItem key={`search-history-${index}`}>
+              {term}
+            </AutoCompleteItem>
+          ))}
+        </AutoCompleteContainer>
       )}
     </InputWrapper>
   )

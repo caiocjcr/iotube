@@ -43,3 +43,32 @@ export const IconWrapper = styled.div`
   top: 50%;
   transform: translateY(-50%);
 `
+
+export const AutoCompleteContainer = styled.ul(
+  ({ theme }) => css`
+    width: 100%;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    border: 1px solid ${theme.border};
+    background-color: ${theme.background};
+    border-radius: 0px 0px 4px 4px;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+  `
+)
+
+export const AutoCompleteItem = styled.li(
+  ({ theme }) => css`
+    width: 100%;
+    padding: 16px;
+    color: ${theme.text};
+    background-color: inherit;
+    transition: background-color 0.1s ease-in;
+    cursor: pointer;
+    &:hover {
+      background-color: ${theme.skeletonBackground}
+    }
+  `
+)

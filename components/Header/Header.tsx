@@ -10,7 +10,7 @@ import { useSearches } from '@/contexts'
 const Header: React.FC = () => {
   const { push } = useRouter()
   const [search, setSearch] = useState<string>('')
-  const { pushSearch } = useSearches()
+  const { searches, pushSearch } = useSearches()
 
   const handleSearch: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault()
@@ -33,6 +33,7 @@ const Header: React.FC = () => {
           onChange={(e) => setSearch(e.target.value)}
           style={{ borderRadius: '4px 0px 0px 4px' }}
           wrapperClassName="search-container"
+          autoCompleteOptions={searches.map((search) => search.term)}
         />
         <IconButton icon={Search} style={{ borderRadius: '0px 4px 4px 0px' }} />
       </SearchForm>
