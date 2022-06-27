@@ -29,6 +29,20 @@ export type GetVideoPayload = {
   id: string
 }
 
+export type GetVideosPayload = {
+  part: string
+  chart?: 'mostPopular'
+  maxResults?: number
+  pageToken?: string
+}
+
+export type GetVideosResponse = {
+  kind: string
+  etag: string
+  pageInfo: PageInfo
+  items: FoundVideo[]
+}
+
 export type FoundVideo = {
   kind: string
   etag: string
