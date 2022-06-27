@@ -37,7 +37,7 @@ describe('useLocalStorage', () => {
     const initialValue = 'initial'
     const storedValue = 'stored'
     const localStorageKey = 'test-key'
-    localStorage.setItem(localStorageKey, storedValue)
+    localStorage.setItem(localStorageKey, JSON.stringify(storedValue))
     const renderResult = render(
       <TestingComponent
         localStorageKey={localStorageKey}
