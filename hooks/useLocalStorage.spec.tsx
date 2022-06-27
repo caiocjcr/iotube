@@ -4,15 +4,15 @@ import { render } from '@testing-library/react'
 type StoredTypes = string | number | Array<unknown> | Record<string, unknown>
 
 type TestingComponentProps<T extends StoredTypes> = {
-  key: string
+  localStorageKey: string
   value: T
 }
 
 function TestingComponent<T extends StoredTypes>({
-  key,
+  localStorageKey,
   value,
 }: TestingComponentProps<T>) {
-  const [state] = useLocalStorage<T>(key, value)
+  const [state] = useLocalStorage<T>(localStorageKey, value)
   return (
     <div data-testid="current-value">
       {typeof state === 'string' || typeof state === 'number'
@@ -26,7 +26,7 @@ describe('useLocalStorage', () => {
   it('should initialize with provided value', () => {
     const initialValue = 'initial'
     const renderResult = render(
-      <TestingComponent key="key" value={initialValue} />
+      <TestingComponent localStorageKey="key" value={initialValue} />
     )
     expect(renderResult.getByTestId('current-value').textContent).toBe(
       initialValue
