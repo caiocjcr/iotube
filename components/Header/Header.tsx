@@ -5,14 +5,17 @@ import Input from '../Input'
 import { StyledHeader, SearchForm, Logo } from './header.styles'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
+import { useSearches } from '@/contexts'
 
 const Header: React.FC = () => {
   const { push } = useRouter()
   const [search, setSearch] = useState<string>('')
+  const { pushSearch } = useSearches()
 
   const handleSearch: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault()
     push(`/search?q=${search}`)
+    pushSearch(search)
   }
 
   return (
