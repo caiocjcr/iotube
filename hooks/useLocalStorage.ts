@@ -6,14 +6,21 @@ const useLocalStorage = <T extends StorableTypes>(
   localStorageKey: string,
   initialValue: T
 ): [T, Dispatch<SetStateAction<T>>] => {
-  const stored = localStorage.getItem(localStorageKey)
-  const [state, setState] = useState<T>(
-    stored ? JSON.parse(stored) : initialValue
-  )
+  const [state, setState] = useState<T>(initialValue)
+  const [hasLoadedStoredValue, setHasLoadedStoredValue] =
+    useState<boolean>(false)
 
   useEffect(() => {
-    localStorage.setItem(localStorageKey, JSON.stringify(state))
-  }, [state, localStorageKey])
+    const stored = localStorage.getItem(localStorageKey)
+    if (stored) setState(JSON.parse(stored))
+    setHasLoadedStoredValue(true)
+  }, [localStorageKey])
+
+  useEffect(() => {
+    // Prevent initial value from overriding currently stored value
+    if (hasLoadedStoredValue)
+      localStorage.setItem(localStorageKey, JSON.stringify(state))
+  }, [state, localStorageKey, hasLoadedStoredValue])
 
   return [state, setState]
 }
