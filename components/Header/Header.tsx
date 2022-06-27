@@ -34,6 +34,7 @@ const Header: React.FC = () => {
           style={{ borderRadius: '4px 0px 0px 4px' }}
           wrapperClassName="search-container"
           autoCompleteOptions={searches.map((search) => search.term)}
+          onAutoComplete={setSearch}
         />
         <IconButton icon={Search} style={{ borderRadius: '0px 4px 4px 0px' }} />
       </SearchForm>

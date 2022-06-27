@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router'
 import React, { useCallback, useRef, useState } from 'react'
 import {
   AutoCompleteContainer,
@@ -15,6 +14,7 @@ type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   error?: string | boolean | undefined
   icon?: React.FC
   autoCompleteOptions?: string[]
+  onAutoComplete?: (value: string) => void
 }
 
 const Input: React.FC<InputProps> = ({
@@ -23,9 +23,9 @@ const Input: React.FC<InputProps> = ({
   wrapperClassName,
   icon: Icon = null,
   autoCompleteOptions,
+  onAutoComplete,
   ...rest
 }) => {
-  const { push } = useRouter()
   const [isFocused, setIsFocused] = useState<boolean>(false)
   const ref = useRef<HTMLDivElement>(null)
 
@@ -40,8 +40,8 @@ const Input: React.FC<InputProps> = ({
     setIsFocused(true)
   }, [])
 
-  const handleSearch = (query: string) => {
-    push(`/search?q=${query}`)
+  const handleAutoComplete = (term: string) => {
+    onAutoComplete?.(term)
     setIsFocused(false)
   }
 
@@ -65,7 +65,7 @@ const Input: React.FC<InputProps> = ({
         <AutoCompleteContainer id="autocomplete-box">
           {autoCompleteOptions.map((term, index) => (
             <AutoCompleteItem
-              onClick={() => handleSearch(term)}
+              onClick={() => handleAutoComplete(term)}
               key={`search-history-${index}`}
             >
               {term}
