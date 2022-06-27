@@ -9,14 +9,16 @@ type VideoInfoProps = {
   title: string
   channelTitle: string
   description: string
+  className?: string
 }
 
 const VideoInfo: React.FC<VideoInfoProps> = ({
   title,
   channelTitle,
   description,
+  className
 }) => (
-  <InfoWrapper>
+  <InfoWrapper className={className}>
     <VideoTitle>{title}</VideoTitle>
     <VideoChannel>
       by <strong>{channelTitle}</strong>
