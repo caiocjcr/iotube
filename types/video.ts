@@ -1,4 +1,4 @@
-import { PageInfo, Thumbnails } from './youtubeApi'
+import { PageInfo, PaginatedYoutubeResponseHead, Thumbnails } from './youtubeApi'
 
 export type SearchVideosPayload = {
   q: string
@@ -7,27 +7,14 @@ export type SearchVideosPayload = {
   maxResults?: number
 }
 
-export type SearchVideosResponse = {
-  kind: string
-  etag: string
-  nextPageToken: string
-  prevPageToken?: string
-  regionCode: string
-  pageInfo: PageInfo
-  items: FoundVideo[]
-}
-
-export type GetVideoResponse = {
-  kind: string
-  etag: string
-  pageInfo: PageInfo
-  items: VideoWithPlayer[]
-}
+export type SearchVideosResponse = PaginatedYoutubeResponseHead<FoundVideo>
 
 export type GetVideoPayload = {
   part: string
   id: string
 }
+
+export type GetVideoResponse = PaginatedYoutubeResponseHead<VideoWithPlayer>
 
 export type GetVideosPayload = {
   part: string
@@ -36,12 +23,7 @@ export type GetVideosPayload = {
   pageToken?: string
 }
 
-export type GetVideosResponse = {
-  kind: string
-  etag: string
-  pageInfo: PageInfo
-  items: FoundVideo[]
-}
+export type GetVideosResponse = PaginatedYoutubeResponseHead<FoundVideo>
 
 export type FoundVideo = {
   kind: string

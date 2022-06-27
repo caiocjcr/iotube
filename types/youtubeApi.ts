@@ -14,3 +14,16 @@ export type PageInfo = {
   totalResults: number
   resultsPerPage: number
 }
+
+export type YoutubeResponseHead = {
+  kind: string
+  etag: string
+}
+
+export type PaginatedYoutubeResponseHead<T> = YoutubeResponseHead & {
+  nextPageToken?: string
+  prevPageToken?: string
+  regionCode: string
+  pageInfo: PageInfo
+  items: T[]
+}
