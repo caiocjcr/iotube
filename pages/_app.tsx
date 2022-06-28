@@ -5,6 +5,7 @@ import { ThemeProvider } from 'styled-components'
 import theme from '@/styles/theme'
 import { QueryClientProvider, QueryClient } from 'react-query'
 import { SearchesProvider } from '@/contexts'
+import LoadingIndicatorProvider from '@/contexts/loading-indicator'
 
 const queryClient = new QueryClient()
 
@@ -12,12 +13,14 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
-        <SearchesProvider>
-          <Header />
-          <main>
-            <Component {...pageProps} />
-          </main>
-        </SearchesProvider>
+        <LoadingIndicatorProvider>
+          <SearchesProvider>
+            <Header />
+            <main>
+              <Component {...pageProps} />
+            </main>
+          </SearchesProvider>
+        </LoadingIndicatorProvider>
       </ThemeProvider>
     </QueryClientProvider>
   )
