@@ -4,7 +4,7 @@ import { Header, LoadingBar } from '@/components'
 import { ThemeProvider } from 'styled-components'
 import theme from '@/styles/theme'
 import { QueryClientProvider, QueryClient } from 'react-query'
-import { SearchesProvider } from '@/contexts'
+import { UserHistoryProvider } from '@/contexts'
 import LoadingIndicatorProvider from '@/contexts/loading-indicator'
 
 const queryClient = new QueryClient()
@@ -15,12 +15,12 @@ function MyApp({ Component, pageProps }: AppProps) {
       <ThemeProvider theme={theme}>
         <LoadingIndicatorProvider indicateOnPageLoad>
           <LoadingBar />
-          <SearchesProvider>
+          <UserHistoryProvider>
             <Header />
             <main>
               <Component {...pageProps} />
             </main>
-          </SearchesProvider>
+          </UserHistoryProvider>
         </LoadingIndicatorProvider>
       </ThemeProvider>
     </QueryClientProvider>

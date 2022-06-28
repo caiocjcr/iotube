@@ -1,1 +1,1 @@
-export { default as SearchesProvider, useSearches } from './searches'
+export { default as UserHistoryProvider, useUserHistory } from './user-history'

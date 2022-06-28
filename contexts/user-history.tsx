@@ -2,23 +2,25 @@ import useLocalStorage from '@/hooks/useLocalStorage'
 import { SearchedVideo } from '@/types'
 import React, { createContext, useContext } from 'react'
 
-type SearchesContextProps = {
+type UserHistoryContextProps = {
   searches: SearchedVideo[]
   pushSearch: (term: string) => void
   deleteSearch: (term: string) => void
 }
 
-export const Searches = createContext<SearchesContextProps>({
+export const UserHistory = createContext<UserHistoryContextProps>({
   searches: [],
   pushSearch: () => null,
   deleteSearch: () => null,
 })
 
-type SearchesProviderProps = {
+type UserHistoryProviderProps = {
   children: React.ReactNode
 }
 
-const SearchesProvider: React.FC<SearchesProviderProps> = ({ children }) => {
+const UserHistoryProvider: React.FC<UserHistoryProviderProps> = ({
+  children,
+}) => {
   const [searches, setSearches] = useLocalStorage<SearchedVideo[]>(
     'iotube-searches',
     []
@@ -37,19 +39,19 @@ const SearchesProvider: React.FC<SearchesProviderProps> = ({ children }) => {
   }
 
   return (
-    <Searches.Provider value={{ searches, pushSearch, deleteSearch }}>
+    <UserHistory.Provider value={{ searches, pushSearch, deleteSearch }}>
       {children}
-    </Searches.Provider>
+    </UserHistory.Provider>
   )
 }
 
-export const useSearches = (): SearchesContextProps => {
-  const context = useContext(Searches)
+export const useUserHistory = (): UserHistoryContextProps => {
+  const context = useContext(UserHistory)
   if (context === undefined)
     throw new Error(
-      'useSearches must be used within a SearchesContext Provider'
+      'useUserHistory must be used within a UserHistoryContext Provider'
     )
   return context
 }
 
-export default SearchesProvider
+export default UserHistoryProvider
