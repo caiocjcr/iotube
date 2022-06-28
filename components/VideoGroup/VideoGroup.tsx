@@ -7,6 +7,7 @@ import {
   VideoSnippetContainer,
 } from './videoGroup.styles'
 import ScrollContainer from 'react-indiana-drag-scroll'
+import Link from 'next/link'
 
 type VideoGroupProps = {
   title: string
@@ -22,7 +23,11 @@ const VideoGroup: React.FC<VideoGroupProps> = ({ title, videos }) => {
       <ScrollContainer className="video-carousel" nativeMobileScroll>
         {videos.map((video, index) => (
           <VideoSnippetContainer key={`${index}_video${video.id}`}>
-            <VideoSnippet video={video} vertical />
+            <Link href={`/watch?v=${video.id}`} passHref>
+              <a>
+                <VideoSnippet video={video} vertical />
+              </a>
+            </Link>
           </VideoSnippetContainer>
         ))}
       </ScrollContainer>
