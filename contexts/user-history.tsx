@@ -4,11 +4,11 @@ import React, { createContext, useContext } from 'react'
 
 type UserHistoryContextProps = {
   searches: SearchedVideo[]
-  categories: number[]
+  categories: string[]
   pushSearch: (term: string) => void
   deleteSearch: (term: string) => void
-  pushCategory: (categoryId: number) => void
-  deleteCategory: (categoryId: number) => void
+  pushCategory: (categoryId: string) => void
+  deleteCategory: (categoryId: string) => void
 }
 
 export const UserHistory = createContext<UserHistoryContextProps>({
@@ -31,7 +31,7 @@ const UserHistoryProvider: React.FC<UserHistoryProviderProps> = ({
     'iotube-searches',
     []
   )
-  const [categories, setCategories] = useLocalStorage<number[]>(
+  const [categories, setCategories] = useLocalStorage<string[]>(
     'iotube-categories',
     []
   )
@@ -48,11 +48,11 @@ const UserHistoryProvider: React.FC<UserHistoryProviderProps> = ({
     setSearches(searches.filter((searched) => searched.term !== term))
   }
 
-  const pushCategory = (categoryId: number) => {
+  const pushCategory = (categoryId: string) => {
     setCategories(Array.from(new Set([...categories, categoryId])))
   }
 
-  const deleteCategory = (categoryId: number) => {
+  const deleteCategory = (categoryId: string) => {
     setCategories(
       categories.filter((storedCategory) => categoryId !== storedCategory)
     )
