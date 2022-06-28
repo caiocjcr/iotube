@@ -11,7 +11,11 @@ const Home: React.FC<HomePageProps> = ({ initialData, error }) => {
   const { data } = useQuery(
     'userCategories',
     () => getCategories({ id: categories.join(','), part: 'snippet' }),
-    { enabled: !!categories.length }
+    {
+      enabled: !!categories.length,
+      refetchOnReconnect: false,
+      refetchOnWindowFocus: false,
+    }
   )
 
   if (error)
