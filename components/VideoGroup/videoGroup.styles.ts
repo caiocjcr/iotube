@@ -39,14 +39,14 @@ export const VideoSnippetContainer = styled.article`
   @media (min-width: 768px) {
     width: unset;
     margin: 0px 32px;
-  }
 
-  &:first-child {
-    margin-left: 0px;
-  }
+    &:first-child {
+      margin-left: 0px;
+    }
 
-  &:last-child {
-    margin-right: 0px;
+    &:last-child {
+      margin-right: 0px;
+    }
   }
 `
 
@@ -55,8 +55,21 @@ export const LoadingContainer = styled.div`
   flex-direction: row;
   flex-wrap: nowrap;
   overflow: hidden;
+
   > svg {
     flex-shrink: 0;
-    margin-right: 64px;
+    margin: 0px 16px;
+
+    @media (min-width: 768px) {
+      margin: 0px 32px;
+
+      &:first-child {
+        margin-left: 0px;
+      }
+
+      &:last-child {
+        margin-right: 0px;
+      }
+    }
   }
 `
