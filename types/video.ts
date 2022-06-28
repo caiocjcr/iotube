@@ -43,6 +43,7 @@ export type VideoSnippet = {
   channelTitle: string
   liveBroadcastContent: string
   publishTime: string
+  categoryId?: string
 }
 
 export type VideoIds = {

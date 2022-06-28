@@ -1,8 +1,16 @@
 import VideoInfo from '@/components/VideoInfo'
+import { useUserHistory } from '@/contexts'
 import { WatchPageProps } from '@/pages/watch'
+import { useEffect } from 'react'
 import { WatchWrapper, InfoWrapper, VideoContainer } from './watch.styles'
 
 const Watch: React.FC<WatchPageProps> = ({ video }) => {
+  const { pushCategory } = useUserHistory()
+
+  useEffect(() => {
+    if (video.snippet.categoryId) pushCategory(video.snippet.categoryId)
+  }, [])
+
   return (
     <WatchWrapper>
       <VideoContainer
