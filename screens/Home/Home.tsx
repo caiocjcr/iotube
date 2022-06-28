@@ -8,8 +8,10 @@ import { getCategories } from '@/services/youtube-api'
 
 const Home: React.FC<HomePageProps> = ({ initialData, error }) => {
   const { categories } = useUserHistory()
-  const { data } = useQuery('userCategories', () =>
-    getCategories({ id: categories.join(','), part: 'snippet' })
+  const { data } = useQuery(
+    'userCategories',
+    () => getCategories({ id: categories.join(','), part: 'snippet' }),
+    { enabled: !!categories.length }
   )
 
   if (error)
