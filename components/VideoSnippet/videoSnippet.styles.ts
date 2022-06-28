@@ -56,7 +56,6 @@ export const VideoSnippetWrapper = styled.div(
       @media (min-width: 768px) {
         width: 360px;
         flex-direction: column;
-        margin: 32px 0px;
 
         .thumbnail-container {
           width: 100%;
