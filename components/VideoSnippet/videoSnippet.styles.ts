@@ -45,6 +45,18 @@ export const VideoSnippetWrapper = styled.div(
       }
     }
 
+    &.vertical {
+      @media (min-width: 768px) {
+        width: 360px;
+        flex-direction: column;
+        margin: 32px 0px;
+
+        .thumbnail-container {
+          width: 100%;
+        }
+      }
+    }
+
     &:hover {
       .thumbnail-container {
         &:after {

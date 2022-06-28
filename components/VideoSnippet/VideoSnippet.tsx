@@ -1,5 +1,6 @@
 import theme from '@/styles/theme'
 import { FoundVideo } from '@/types'
+import classNames from 'classnames'
 import Image from 'next/image'
 import ContentLoader from 'react-content-loader'
 import VideoInfo from '../VideoInfo'
@@ -7,28 +8,36 @@ import { ThumbnailContainer, VideoSnippetWrapper } from './videoSnippet.styles'
 
 type VideoSnippetProps = {
   video: FoundVideo
+  vertical?: boolean
 }
 
 type VideoSnippetComponent = React.FC<VideoSnippetProps> & {
   Skeleton: React.FC
 }
 
-const VideoSnippet: VideoSnippetComponent = ({ video }) => (
-  <VideoSnippetWrapper>
-    <ThumbnailContainer className="thumbnail-container">
-      <Image
-        src={video.snippet.thumbnails.medium.url}
-        alt={video.snippet.title}
-        layout="fill"
+const VideoSnippet: VideoSnippetComponent = ({ video, vertical = false }) => {
+  const wrapperClassNames = classNames({
+    vertical,
+  })
+
+  return (
+    <VideoSnippetWrapper className={wrapperClassNames}>
+      <ThumbnailContainer className="thumbnail-container">
+        <Image
+          src={video.snippet.thumbnails.medium.url}
+          alt={video.snippet.title}
+          layout="fill"
+        />
+      </ThumbnailContainer>
+      <VideoInfo
+        title={video.snippet.title}
+        channelTitle={video.snippet.channelTitle}
+        description={video.snippet.description}
+        className="video-info"
       />
-    </ThumbnailContainer>
-    <VideoInfo
-      title={video.snippet.title}
-      channelTitle={video.snippet.channelTitle}
-      description={video.snippet.description}
-    />
-  </VideoSnippetWrapper>
-)
+    </VideoSnippetWrapper>
+  )
+}
 
 VideoSnippet.Skeleton = () => (
   <ContentLoader
