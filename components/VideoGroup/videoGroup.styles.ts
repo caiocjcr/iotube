@@ -49,3 +49,13 @@ export const VideoSnippetContainer = styled.article`
     margin-right: 0px;
   }
 `
+
+export const LoadingContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  > * {
+    flex-shrink: 0;
+  }
+`

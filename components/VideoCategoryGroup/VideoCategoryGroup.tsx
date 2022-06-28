@@ -8,7 +8,7 @@ type VideoCategoryGroupProps = {
 const VideoCategoryGroup: React.FC<VideoCategoryGroupProps> = ({
   category,
 }) => {
-  return <VideoGroup title={category.snippet.title} videos={[]} />
+  return <VideoGroup title={category.snippet.title} videos={[]} loading />
 }
 
 export default VideoCategoryGroup
