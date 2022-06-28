@@ -3,9 +3,9 @@ import { Home } from '@/screens'
 import { GetVideosResponse } from '@/types'
 import { getVideos } from '@/services/youtube-api'
 
-export const getServerSideProps: GetServerSideProps<HomePageProps> = async (
-  context
-) => {
+export const getServerSideProps: GetServerSideProps<
+  HomePageProps
+> = async () => {
   try {
     const initialData = await getVideos({
       chart: 'mostPopular',
