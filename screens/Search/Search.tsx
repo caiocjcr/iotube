@@ -8,22 +8,24 @@ import { FoundVideo, SearchVideosResponse } from '@/types'
 import { useMemo } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { useRouter } from 'next/router'
+import { useMediaQuery } from 'react-responsive'
 
-const SkeletonLoader = (
+const SkeletonLoader: React.FC<{ vertical: boolean }> = ({ vertical }) => (
   <>
     <VideoSnippetContainer>
-      <VideoSnippet.Skeleton />
+      <VideoSnippet.Skeleton vertical={vertical} />
     </VideoSnippetContainer>
     <VideoSnippetContainer>
-      <VideoSnippet.Skeleton />
+      <VideoSnippet.Skeleton vertical={vertical} />
     </VideoSnippetContainer>
     <VideoSnippetContainer>
-      <VideoSnippet.Skeleton />
+      <VideoSnippet.Skeleton vertical={vertical} />
     </VideoSnippetContainer>
   </>
 )
 
 const SearchPage: React.FC<SearchPageProps> = ({ error, initialSearch }) => {
+  const isMobile = useMediaQuery({ query: '(max-width: 767px)' })
   const {
     query: { q = '' },
   } = useRouter()
@@ -70,7 +72,7 @@ const SearchPage: React.FC<SearchPageProps> = ({ error, initialSearch }) => {
         dataLength={videos.length}
         hasMore={!!hasNextPage}
         next={fetchNextPage}
-        loader={SkeletonLoader}
+        loader={<SkeletonLoader vertical={isMobile} />}
       >
         {videos.map((video) => (
           <VideoSnippetContainer key={video.id.videoId}>
