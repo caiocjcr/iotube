@@ -1,23 +1,20 @@
 import type { GetServerSideProps, NextPage } from 'next'
 import { Watch } from '@/screens'
-import { youtubeApi } from '@/services'
-import { GetVideoPayload, GetVideoResponse, VideoWithPlayer } from '@/types'
+import { VideoWithPlayer } from '@/types'
+import { getVideo } from '@/services/youtube-api'
 
 export const getServerSideProps: GetServerSideProps<WatchPageProps> = async (
   context
 ) => {
   const { v } = context.query
-  const { body } = await youtubeApi.get<GetVideoResponse, GetVideoPayload>({
-    url: '/videos',
-    params: {
-      part: 'snippet,player',
-      id: v as string,
-    },
+  const { items } = await getVideo({
+    part: 'snippet,player',
+    id: v as string,
   })
-  if (!body.items.length) context.res.statusCode = 404
+  if (!items.length) context.res.statusCode = 404
   return {
     props: {
-      video: body.items[0],
+      video: items[0],
     },
   }
 }

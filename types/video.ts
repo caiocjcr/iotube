@@ -21,6 +21,7 @@ export type GetVideosPayload = {
   chart?: 'mostPopular'
   maxResults?: number
   pageToken?: string
+  id?: string
 }
 
 export type GetVideosResponse = PaginatedYoutubeResponseHead<FoundVideo>
