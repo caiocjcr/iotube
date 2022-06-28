@@ -55,7 +55,8 @@ export const LoadingContainer = styled.div`
   flex-direction: row;
   flex-wrap: nowrap;
   overflow: hidden;
-  > * {
+  > svg {
     flex-shrink: 0;
+    margin-right: 64px;
   }
 `
