@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useState } from 'react'
+import { useRouter } from 'next/router'
+import React, { createContext, useContext, useEffect, useState } from 'react'
 
 type LoadingIndicatorProps = {
   isLoading: boolean
@@ -14,16 +15,30 @@ export const LoadingIndicator = createContext<LoadingIndicatorProps>({
 
 type LoadingIndicatorProviderProps = {
   children: React.ReactNode
+  indicateOnPageLoad?: boolean
 }
 
 const LoadingIndicatorProvider: React.FC<LoadingIndicatorProviderProps> = ({
   children,
+  indicateOnPageLoad,
 }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const { events } = useRouter()
 
   const startLoading = () => setIsLoading(true)
 
   const stopLoading = () => setIsLoading(false)
+
+  useEffect(() => {
+    if (indicateOnPageLoad) {
+      events.on('routeChangeStart', startLoading)
+      events.on('routeChangeComplete', stopLoading)
+      return () => {
+        events.off('routeChangeStart', startLoading)
+        events.off('routeChangeComplete', stopLoading)
+      }
+    }
+  }, [indicateOnPageLoad, events])
 
   return (
     <LoadingIndicator.Provider value={{ isLoading, startLoading, stopLoading }}>

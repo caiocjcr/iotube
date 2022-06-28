@@ -13,7 +13,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
-        <LoadingIndicatorProvider>
+        <LoadingIndicatorProvider indicateOnPageLoad>
           <LoadingBar />
           <SearchesProvider>
             <Header />
