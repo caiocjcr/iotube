@@ -1,9 +1,16 @@
+import { ErrorNotice } from '@/components'
 import VideoGroup from '@/components/VideoGroup'
 import { HomePageProps } from '@/pages'
 import { HomeWrapper } from './home.styles'
 
 const Home: React.FC<HomePageProps> = ({ initialData, error }) => {
-  if (error) return <div>error</div>
+  if (error)
+    return (
+      <HomeWrapper>
+        <ErrorNotice />
+      </HomeWrapper>
+    )
+
   return (
     <HomeWrapper>
       <VideoGroup title="Most popular" videos={initialData.items} />
