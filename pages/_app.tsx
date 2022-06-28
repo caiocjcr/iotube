@@ -1,6 +1,6 @@
 import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
-import { Header } from '@/components'
+import { Header, LoadingBar } from '@/components'
 import { ThemeProvider } from 'styled-components'
 import theme from '@/styles/theme'
 import { QueryClientProvider, QueryClient } from 'react-query'
@@ -14,6 +14,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
         <LoadingIndicatorProvider>
+          <LoadingBar />
           <SearchesProvider>
             <Header />
             <main>
