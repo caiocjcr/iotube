@@ -1,17 +1,13 @@
-import { VideoSnippet } from '@/components'
+import VideoGroup from '@/components/VideoGroup'
 import { HomePageProps } from '@/pages'
+import { HomeWrapper } from './home.styles'
 
-const Home: React.FC<HomePageProps> = ({ initialData }) => {
+const Home: React.FC<HomePageProps> = ({ initialData, error }) => {
+  if (error) return <div>error</div>
   return (
-    <div>
-      {initialData?.items.map((video, index) => (
-        <VideoSnippet
-          key={`${index}-video${video.id}`}
-          video={video}
-          vertical
-        />
-      ))}
-    </div>
+    <HomeWrapper>
+      <VideoGroup title="Most popular" videos={initialData.items} />
+    </HomeWrapper>
   )
 }
 
