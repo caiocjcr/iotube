@@ -1,9 +1,17 @@
-import { ErrorNotice } from '@/components'
+import { ErrorNotice, VideoCategoryGroup } from '@/components'
 import VideoGroup from '@/components/VideoGroup'
 import { HomePageProps } from '@/pages'
-import { HomeWrapper } from './home.styles'
+import { HomeWrapper, NewUserWelcome } from './home.styles'
+import { useQuery } from 'react-query'
+import { useUserHistory } from '@/contexts'
+import { getCategories } from '@/services/youtube-api'
 
 const Home: React.FC<HomePageProps> = ({ initialData, error }) => {
+  const { categories } = useUserHistory()
+  const { data } = useQuery('userCategories', () =>
+    getCategories({ id: categories.join(','), part: 'snippet' })
+  )
+
   if (error)
     return (
       <HomeWrapper>
@@ -14,6 +22,19 @@ const Home: React.FC<HomePageProps> = ({ initialData, error }) => {
   return (
     <HomeWrapper>
       <VideoGroup title="Most popular" videos={initialData.items} />
+      {data?.items.length ? (
+        data.items.map((category, index) => (
+          <VideoCategoryGroup
+            key={`${index}-category${category.id}`}
+            category={category}
+          />
+        ))
+      ) : (
+        <NewUserWelcome>
+          We don&apos;t know your taste yet. Go watch some videos and come back
+          so we can recommend you some of your stuff {`:)`}
+        </NewUserWelcome>
+      )}
     </HomeWrapper>
   )
 }

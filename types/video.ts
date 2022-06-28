@@ -1,4 +1,8 @@
-import { PaginatedYoutubeResponseHead, Thumbnails } from './youtubeApi'
+import {
+  PaginatedYoutubeResponseHead,
+  SinglePageYoutubeResponseHead,
+  Thumbnails,
+} from './youtubeApi'
 
 export type SearchVideosPayload = {
   q: string
@@ -26,6 +30,14 @@ export type GetVideosPayload = {
 
 export type GetVideosResponse = PaginatedYoutubeResponseHead<FoundVideo>
 
+export type GetVideoCategoriesPayload = {
+  id: string
+  part: string
+}
+
+export type GetVideoCategoriesResponse =
+  SinglePageYoutubeResponseHead<FoundCategory>
+
 export type FoundVideo = {
   kind: string
   etag: string
@@ -45,6 +57,19 @@ export type VideoSnippet = {
   liveBroadcastContent: string
   publishTime: string
   categoryId?: string
+}
+
+export type FoundCategory = {
+  kind: string
+  etag: string
+  id: string
+  snippet: CategorySnippet
+}
+
+export type CategorySnippet = {
+  title: string
+  channelId: string
+  assignable: boolean
 }
 
 export type VideoIds = {

@@ -5,6 +5,8 @@ import {
   GetVideosResponse,
   GetVideoPayload,
   GetVideoResponse,
+  GetVideoCategoriesPayload,
+  GetVideoCategoriesResponse,
 } from '@/types'
 import axios from 'axios'
 import AxiosHttpAdapter from './axios-adapter'
@@ -64,6 +66,22 @@ export const getVideo = async ({
     url: '/videos',
     params: {
       part: 'snippet,player',
+      id,
+    },
+  })
+  return body
+}
+
+export const getCategories = async ({
+  id,
+}: GetVideoCategoriesPayload): Promise<GetVideoCategoriesResponse> => {
+  const { body } = await httpClient.get<
+    GetVideoCategoriesResponse,
+    GetVideoCategoriesPayload
+  >({
+    url: '/videoCategories',
+    params: {
+      part: 'snippet',
       id,
     },
   })

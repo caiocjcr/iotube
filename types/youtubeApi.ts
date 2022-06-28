@@ -20,6 +20,10 @@ export type YoutubeResponseHead = {
   etag: string
 }
 
+export type SinglePageYoutubeResponseHead<T> = YoutubeResponseHead & {
+  items: T[]
+}
+
 export type PaginatedYoutubeResponseHead<T> = YoutubeResponseHead & {
   nextPageToken?: string
   prevPageToken?: string

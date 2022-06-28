@@ -8,3 +8,9 @@ export const HomeWrapper = styled.div`
     padding: 0 16px;
   }
 `
+
+export const NewUserWelcome = styled.h2`
+  font-weight: 300;
+  margin-top: 64px;
+  text-align: center;
+`
