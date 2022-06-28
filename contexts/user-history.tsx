@@ -4,14 +4,20 @@ import React, { createContext, useContext } from 'react'
 
 type UserHistoryContextProps = {
   searches: SearchedVideo[]
+  categories: number[]
   pushSearch: (term: string) => void
   deleteSearch: (term: string) => void
+  pushCategory: (categoryId: number) => void
+  deleteCategory: (categoryId: number) => void
 }
 
 export const UserHistory = createContext<UserHistoryContextProps>({
   searches: [],
+  categories: [],
   pushSearch: () => null,
   deleteSearch: () => null,
+  pushCategory: () => null,
+  deleteCategory: () => null,
 })
 
 type UserHistoryProviderProps = {
@@ -23,6 +29,10 @@ const UserHistoryProvider: React.FC<UserHistoryProviderProps> = ({
 }) => {
   const [searches, setSearches] = useLocalStorage<SearchedVideo[]>(
     'iotube-searches',
+    []
+  )
+  const [categories, setCategories] = useLocalStorage<number[]>(
+    'iotube-categories',
     []
   )
 
@@ -38,8 +48,27 @@ const UserHistoryProvider: React.FC<UserHistoryProviderProps> = ({
     setSearches(searches.filter((searched) => searched.term !== term))
   }
 
+  const pushCategory = (categoryId: number) => {
+    setCategories(Array.from(new Set([...categories, categoryId])))
+  }
+
+  const deleteCategory = (categoryId: number) => {
+    setCategories(
+      categories.filter((storedCategory) => categoryId !== storedCategory)
+    )
+  }
+
   return (
-    <UserHistory.Provider value={{ searches, pushSearch, deleteSearch }}>
+    <UserHistory.Provider
+      value={{
+        searches,
+        categories,
+        pushSearch,
+        deleteSearch,
+        pushCategory,
+        deleteCategory,
+      }}
+    >
       {children}
     </UserHistory.Provider>
   )
