@@ -1,9 +1,15 @@
 import { ErrorNoticeWrapper } from './errorNotice.styles'
 
-const ErrorNotice: React.FC = () => (
+type ErrorNoticeProps = {
+  message?: string
+}
+
+const ErrorNotice: React.FC<ErrorNoticeProps> = ({
+  message = ' An unexpected error occurred.',
+}) => (
   <ErrorNoticeWrapper>
     <span className="sad">:(</span>
-    <br /> An unexpected error occurred.
+    <br /> {message}
   </ErrorNoticeWrapper>
 )
 

@@ -26,7 +26,7 @@ const VideoCategoryGroup: React.FC<VideoCategoryGroupProps> = ({
     }
   )
 
-  if (isError) return <ErrorNotice />
+  if (isError) return <ErrorNotice message="Category not found" />
 
   return (
     <VideoGroup
