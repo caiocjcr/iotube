@@ -46,6 +46,7 @@ export const getVideos = async ({
   pageToken,
   maxResults = 10,
   chart,
+  videoCategoryId,
 }: GetVideosPayload): Promise<GetVideosResponse> => {
   const { body } = await httpClient.get<GetVideosResponse, GetVideosPayload>({
     url: '/videos',
@@ -54,6 +55,7 @@ export const getVideos = async ({
       maxResults,
       ...(pageToken ? { pageToken } : {}),
       ...(chart ? { chart } : {}),
+      ...(videoCategoryId ? { videoCategoryId } : {}),
     },
   })
   return body

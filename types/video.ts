@@ -26,6 +26,7 @@ export type GetVideosPayload = {
   maxResults?: number
   pageToken?: string
   id?: string
+  videoCategoryId?: string
 }
 
 export type GetVideosResponse = PaginatedYoutubeResponseHead<FoundVideo>
