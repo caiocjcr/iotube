@@ -24,10 +24,10 @@ const VideoGroup: React.FC<VideoGroupProps> = ({ title, videos, loading }) => {
       </TitleWrapper>
       {loading ? (
         <LoadingContainer>
-          <VideoSnippet.Skeleton />
-          <VideoSnippet.Skeleton />
-          <VideoSnippet.Skeleton />
-          <VideoSnippet.Skeleton />
+          <VideoSnippet.Skeleton vertical />
+          <VideoSnippet.Skeleton vertical />
+          <VideoSnippet.Skeleton vertical />
+          <VideoSnippet.Skeleton vertical />
         </LoadingContainer>
       ) : (
         <ScrollContainer className="video-carousel" nativeMobileScroll>
