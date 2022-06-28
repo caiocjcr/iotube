@@ -1,11 +1,7 @@
-import { VideoSnippet } from '@/components'
+import { ErrorNotice, VideoSnippet } from '@/components'
 import { SearchPageProps } from '@/pages/search'
 import Link from 'next/link'
-import {
-  ErrorNotice,
-  SearchWrapper,
-  VideoSnippetContainer,
-} from './search.styles'
+import { SearchWrapper, VideoSnippetContainer } from './search.styles'
 import { useInfiniteQuery } from 'react-query'
 import { searchVideos } from '@/services/youtube-api'
 import { FoundVideo, SearchVideosResponse } from '@/types'
@@ -64,10 +60,7 @@ const SearchPage: React.FC<SearchPageProps> = ({ error, initialSearch }) => {
   if (error)
     return (
       <SearchWrapper>
-        <ErrorNotice>
-          <span className="sad">:(</span>
-          <br /> An unexpected error occurred.
-        </ErrorNotice>
+        <ErrorNotice />
       </SearchWrapper>
     )
 
