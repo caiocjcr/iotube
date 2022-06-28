@@ -4,9 +4,9 @@ import {
   TitleWrapper,
   VideoGroupTitle,
   VideoGroupWrapper,
-  VideoList,
   VideoSnippetContainer,
 } from './videoGroup.styles'
+import ScrollContainer from 'react-indiana-drag-scroll'
 
 type VideoGroupProps = {
   title: string
@@ -19,13 +19,13 @@ const VideoGroup: React.FC<VideoGroupProps> = ({ title, videos }) => {
       <TitleWrapper>
         <VideoGroupTitle>{title}</VideoGroupTitle>
       </TitleWrapper>
-      <VideoList>
+      <ScrollContainer className="video-carousel" nativeMobileScroll>
         {videos.map((video, index) => (
           <VideoSnippetContainer key={`${index}_video${video.id}`}>
             <VideoSnippet video={video} vertical />
           </VideoSnippetContainer>
         ))}
-      </VideoList>
+      </ScrollContainer>
     </VideoGroupWrapper>
   )
 }

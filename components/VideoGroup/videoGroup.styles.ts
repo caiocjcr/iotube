@@ -3,6 +3,13 @@ import styled, { css } from 'styled-components'
 export const VideoGroupWrapper = styled.section`
   margin: 32px 0px;
   width: 100%;
+
+  .video-carousel {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+  }
 `
 
 export const TitleWrapper = styled.div`
@@ -24,25 +31,6 @@ export const VideoGroupTitle = styled.h2(
   `
 )
 
-export const VideoList = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  overflow-x: scroll;
-  scroll-snap-type: x mandatory;
-  scroll-padding: 16px;
-  &::-webkit-scrollbar {
-    display: none;
-  }
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-
-  @media (min-width: 768px) {
-    scroll-padding: unset;
-  }
-`
-
 export const VideoSnippetContainer = styled.article`
   margin: 0px 16px;
   scroll-snap-align: start;
@@ -51,5 +39,13 @@ export const VideoSnippetContainer = styled.article`
   @media (min-width: 768px) {
     width: unset;
     margin: 0px 32px;
+  }
+
+  &:first-child {
+    margin-left: 0px;
+  }
+
+  &:last-child {
+    margin-right: 0px;
   }
 `
