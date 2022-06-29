@@ -2,10 +2,10 @@ import { ErrorNotice, VideoSnippet } from '@/components'
 import { SearchPageProps } from '@/pages/search'
 import Link from 'next/link'
 import { SearchWrapper, VideoSnippetContainer } from './search.styles'
-import { useInfiniteQuery } from 'react-query'
+import { useInfiniteQuery, useQueryClient } from 'react-query'
 import { searchVideos } from '@/services/youtube-api'
 import { FoundVideo, SearchVideosResponse } from '@/types'
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { useRouter } from 'next/router'
 import { useMediaQuery } from 'react-responsive'
@@ -29,6 +29,7 @@ const SearchPage: React.FC<SearchPageProps> = ({ error, initialSearch }) => {
   const {
     query: { q = '' },
   } = useRouter()
+  const queryClient = useQueryClient()
   const { data, hasNextPage, fetchNextPage } =
     useInfiniteQuery<SearchVideosResponse>(
       'searchResults',
@@ -49,6 +50,14 @@ const SearchPage: React.FC<SearchPageProps> = ({ error, initialSearch }) => {
         enabled: !error,
       }
     )
+
+  useEffect(() => {
+    if (data?.pages?.[0]?.etag !== initialSearch?.etag)
+      queryClient.setQueryData('searchResults', {
+        pages: [initialSearch],
+        pageParams: [],
+      })
+  }, [initialSearch])
 
   const videos = useMemo(
     () =>
