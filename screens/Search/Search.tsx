@@ -52,11 +52,12 @@ const SearchPage: React.FC<SearchPageProps> = ({ error, initialSearch }) => {
     )
 
   useEffect(() => {
-    if (data?.pages?.[0]?.etag !== initialSearch?.etag)
+    if (data?.pages?.[0]?.etag !== initialSearch?.etag) {
       queryClient.setQueryData('searchResults', {
         pages: [initialSearch],
         pageParams: [],
       })
+    }
   }, [initialSearch])
 
   const videos = useMemo(
